@@ -1,0 +1,77 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx
+    links:
+        - gunicorn1:gunicorn1
+        - gunicorn2:gunicorn2
+        - gunicorn3:gunicorn3
+        - node1:node1
+        - node2:node2
+        - node3:node3
+    ports:
+        - "80:80"
+        - "5000:5000"
+        - "5555:5555"
+
+  flask:
+    build:
+      context: .
+      dockerfile: ./flask/Dockerfile
+    ports:
+     - "9000:8080"
+  
+  gunicorn1:
+    build: 
+      context: .
+      dockerfile: ./gunicorn/Dockerfile
+    ports:
+     - "7000:8080"
+
+  gunicorn2:
+    build: 
+      context: .
+      dockerfile: ./gunicorn/Dockerfile
+    ports:
+     - "8080"
+    #~ volumes:
+     #~ - .:/code
+     
+  gunicorn3:
+    build: 
+      context: .
+      dockerfile: ./gunicorn/Dockerfile
+    ports:
+     - "8080"
+    #~ volumes:
+     #~ - .:/code
+     
+  node1:
+    build: 
+      context: .
+      dockerfile: ./node/Dockerfile
+    ports:
+     - "8000:8080"
+    #~ volumes:
+     #~ - .:/code
+     
+  node2:
+    build: 
+      context: .
+      dockerfile: ./node/Dockerfile
+    ports:
+     - "8080"
+    #~ volumes:
+     #~ - .:/code
+  
+  node3:
+    build: 
+      context: .
+      dockerfile: ./node/Dockerfile
+    ports:
+     - "8080"
+    #~ volumes:
+     #~ - .:/code
+
+  redis:
+    image: "redis:alpine"

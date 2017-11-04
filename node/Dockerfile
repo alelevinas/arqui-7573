@@ -1,11 +1,9 @@
-FROM python:3.4-alpine
-
-ADD ./static/. /home/www/arqui/static/
+FROM node:alpine
 
 ADD ./node/. /code
 
 WORKDIR /code
 
-RUN pip install -r requirements.txt
+RUN npm install
 
-CMD ["python", "app.py"]
+CMD ["npm", "start"]

@@ -1,0 +1,15 @@
+{
+  "name": "docker-node-alpine-arqui-7573",
+  "version": "1.0.0",
+  "description": "An express server hello world application to demo docker",
+  "main": "app.js",
+  
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  
+  
+  "scripts": {
+    "start": "node app.js"
+  }
+}

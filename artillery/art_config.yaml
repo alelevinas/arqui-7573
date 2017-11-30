@@ -1,0 +1,120 @@
+config:
+  target: "http://localhost:5050"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 10
+      arrivalRate: 50
+    - duration: 40
+      arrivalRate: 100
+  environments:
+    flask:
+      target: "http://localhost:9000"
+      phases:
+        - duration: 30
+          arrivalRate: 10
+        - duration: 30
+          arrivalRate: 20
+        - duration: 60
+          arrivalRate: 50
+        - duration: 60
+          arrivalRate: 100
+        - duration: 60
+          arrivalRate: 200
+        - duration: 60
+          arrivalRate: 300
+
+    gunicorn:
+      target: "http://localhost:7000"
+      phases:
+        - duration: 30
+          arrivalRate: 10
+        - duration: 30
+          arrivalRate: 20
+        - duration: 60
+          arrivalRate: 50
+        - duration: 60
+          arrivalRate: 100
+        - duration: 60
+          arrivalRate: 200
+        - duration: 60
+          arrivalRate: 300
+    gunicorn-nginx:
+      target: "http://localhost:5050"
+      phases:
+        - duration: 30
+          arrivalRate: 10
+        - duration: 30
+          arrivalRate: 20
+        - duration: 60
+          arrivalRate: 50
+        - duration: 60
+          arrivalRate: 100
+        - duration: 60
+          arrivalRate: 200
+        - duration: 60
+          arrivalRate: 300
+    node:
+      target: "http://localhost:9090"
+      phases:
+        - duration: 30
+          arrivalRate: 10
+        - duration: 30
+          arrivalRate: 20
+        - duration: 60
+          arrivalRate: 50
+        - duration: 60
+          arrivalRate: 100
+        - duration: 60
+          arrivalRate: 200
+        - duration: 60
+          arrivalRate: 300
+    node-nginx:
+      target: "http://localhost:5000"
+      phases:
+        - duration: 30
+          arrivalRate: 10
+        - duration: 30
+          arrivalRate: 20
+        - duration: 60
+          arrivalRate: 50
+        - duration: 60
+          arrivalRate: 100
+        - duration: 60
+          arrivalRate: 200
+        - duration: 60
+          arrivalRate: 300
+
+  plugins:
+    statsd:
+      - host: 127.0.0.1
+        port: 8125
+        prefix: artillery
+        
+scenarios:
+  - name: "Fast"
+    flow:
+      - get:
+          url: "/"
+  #~ - name: "Slow"
+    #~ flow:
+      #~ - get:
+          #~ url: "/process/4"
+  - name: "Static"
+    flow:
+      - get:
+          url: "/static/files/1.gif"
+  #~ - name: "Low CPU"
+    #~ flow:
+      #~ - get:
+          #~ url: "/process/100"
+  #~ - name: "High CPU"
+    #~ flow:
+      #~ - get:
+          #~ url: "/process/500"
+  #~ - name: "Mix"
+    #~ flow:
+      #~ - get:
+          #~ url: "/process/4"
+
+

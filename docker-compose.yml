@@ -10,7 +10,7 @@ services:
         - node2:node2
         - node3:node3
     ports:
-        - "80:80"
+        - "5050:5050"
         - "5000:5000"
         - "5555:5555"
 
@@ -27,6 +27,8 @@ services:
       dockerfile: ./gunicorn/Dockerfile
     ports:
      - "7000:8080"
+    volumes:
+     - ./gunicorn/app.py:/code/app.py
 
   gunicorn2:
     build: 
@@ -34,8 +36,8 @@ services:
       dockerfile: ./gunicorn/Dockerfile
     ports:
      - "8080"
-    #~ volumes:
-     #~ - .:/code
+    volumes:
+     - ./gunicorn/app.py:/code/app.py
      
   gunicorn3:
     build: 
@@ -51,7 +53,7 @@ services:
       context: .
       dockerfile: ./node/Dockerfile
     ports:
-     - "8000:8080"
+     - "9090:8080"
     #~ volumes:
      #~ - .:/code
      
@@ -75,3 +77,19 @@ services:
 
   redis:
     image: "redis:alpine"
+
+  grafana_graphite:
+    image: kamon/grafana_graphite
+    container_name: grafana-dashboard
+    ports:
+      - "80:80"
+      - "81:81"
+      - "2003:2003"
+      #~ - "2023-2024:2023-2024"
+      - "8125:8125/udp"
+      - "8126:8126"
+    volumes:
+      - ./data/whisper:/opt/graphite/storage/whisper
+      - ./data/grafana:/opt/grafana/data
+      - ./log/graphite:/opt/graphite/storage/log
+      - ./grafana/dashboards:/src/dashboards

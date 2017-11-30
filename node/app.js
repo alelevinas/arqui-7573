@@ -8,10 +8,16 @@ app.get('/', function(req, res) {
 
 app.use('/static', express.static(__dirname + '/static/files'));
 
-//~ app.get('/resources/:resource_id', function(req, res) {
-  //~ const resource_id = req.params.resource_id;
-  //~ res.send(resources[resource_id]);
-//~ });
+app.get('/process/:n', function(req, res) {
+  const n = req.params.n;
+
+  for (var i = n; i >= 0; i--) {
+  	for (var j = n; j >= 0; j--) {
+  		a = 2
+  	}
+  }
+  res.send("OK");
+});
 
 app.listen(8080, function () {
   console.log('listening on port 8080!')

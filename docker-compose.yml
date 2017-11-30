@@ -45,8 +45,8 @@ services:
       dockerfile: ./gunicorn/Dockerfile
     ports:
      - "8080"
-    #~ volumes:
-     #~ - .:/code
+    volumes:
+     - ./gunicorn/app.py:/code/app.py
      
   node1:
     build: 

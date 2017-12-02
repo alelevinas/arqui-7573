@@ -5,6 +5,8 @@ from flask import send_file
 app = Flask(__name__)
 # redis = Redis(host='redis', port=6379)
 
+static_dir = '/home/www/arqui/static/files'
+
 @app.route('/')
 def hello():
     # count = redis.incr('hits')

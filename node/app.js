@@ -6,7 +6,7 @@ app.get('/', function(req, res) {
   res.send("Hi, I'm root");
 });
 
-app.use('/static', express.static(__dirname + '/static/files'));
+app.use('/static', express.static('/home/www/arqui/static/files'));
 
 app.get('/process/:n', function(req, res) {
   const n = req.params.n;
